@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         var item: String = ""
         for (i in 1 .. tag.length())
         {
-            if (tag.text[i] == ',')
+            if (tag.text[i-1] == ',')
             {
                 list.add(item)
                 count++
@@ -48,19 +48,34 @@ class MainActivity : AppCompatActivity() {
             }
             else
             {
-                item += tag.text[i]
+                item += tag.text[i-1]
             }
+        }
+        if (item != "")
+        {
+            list.add(item)
         }
 
         try {
             price.text.toString().toDouble()
-            val prod: Product = Product(product.toString(), price.text.toString().toDouble(), list)
+            val prod: Product = Product(product.text.toString(), price.text.toString().toDouble(), list)
 
-            tvNameProduct.text = product.toString()
+            tvNameProduct.text = product.text.toString()
             tvPriceProduct.text = price.text.toString()
 
-
             var prodJSON: String = Gson().toJson(prod)
+
+            var prod2: Product = Gson().fromJson(prodJSON, Product::class.java)
+
+            tvNameProduct.text = prod2.name
+            tvPriceProduct.text = prod2.price.toString()
+
+            var s: String = ""
+            for (i in 0 .. prod2.tags.size - 1)
+            {
+                s = s + prod2.tags[i] + " "
+            }
+            tvTagsProduct.text = s
         }
         catch (e: Exception)
         {
