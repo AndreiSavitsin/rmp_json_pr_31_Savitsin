@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">json_pr_31_Savitsin</string>
+    <string name="viewName">Введите название продукта:</string>
+    <string name="viewPrice">Введите цену за продукт:</string>
+    <string name="viewTag">Введите тег продукта:</string>
+    <string name="saveProduct">Сохранить продукт</string>
+    <string name="product">Продукт</string>
+    <string name="price">Цена</string>
+    <string name="Tags">Теги</string>
+</resources>
