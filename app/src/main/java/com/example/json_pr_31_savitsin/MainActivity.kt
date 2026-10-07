@@ -35,12 +35,40 @@ class MainActivity : AppCompatActivity() {
 
     fun btnSave(view: View)
     {
+        var nameStr = product.text.toString()
+        var priceStr = price.text.toString()
+        var tagStr = tag.text.toString()
+
+        if (nameStr == "")
+        {
+            Toast.makeText(this, "Введите название товара", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (priceStr == "")
+        {
+            Toast.makeText(this, "Введите цену", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (priceStr.toDoubleOrNull() == null)
+        {
+            Toast.makeText(this, "Цена должна быть числом", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (tagStr == "")
+        {
+            Toast.makeText(this, "Введите теги", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         var list: MutableList<String> = mutableListOf()
         var count: Int = 0
         var item: String = ""
-        for (i in 1 .. tag.length())
+        for (i in 1 .. tagStr.length)
         {
-            if (tag.text[i-1] == ',')
+            if (tagStr[i-1] == ',')
             {
                 list.add(item)
                 count++
@@ -48,7 +76,7 @@ class MainActivity : AppCompatActivity() {
             }
             else
             {
-                item += tag.text[i-1]
+                item += tagStr[i-1]
             }
         }
         if (item != "")
@@ -57,11 +85,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         try {
-            price.text.toString().toDouble()
-            val prod: Product = Product(product.text.toString(), price.text.toString().toDouble(), list)
+            val prod: Product = Product(nameStr, priceStr.toDouble(), list)
 
-            tvNameProduct.text = product.text.toString()
-            tvPriceProduct.text = price.text.toString()
+            tvNameProduct.text = nameStr
+            tvPriceProduct.text = priceStr
 
             var prodJSON: String = Gson().toJson(prod)
 
